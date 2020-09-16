@@ -25,10 +25,23 @@ public void init(){
 
 public Cliente saveCliente(Cliente cliente){
 
-    Cliente newCliente = new Cliente((clientes.size()+1),cliente.getNome(),cliente.getCpf());
+    Cliente cli = null;
+    int id = 0;
+
+    do{
+        id++;
+        cli = getClienteById(id);
+    }while(cli != null);
+
+    Cliente newCliente = new Cliente(id,cliente.getNome(),cliente.getCpf());
     clientes.add(newCliente);
     System.out.println(newCliente);
     return (newCliente);
+}
+
+public void delete(Cliente cliente){
+
+    clientes.remove(cliente);
 }
 
 public List<Cliente> getClients(){
@@ -45,6 +58,18 @@ public Cliente getClienteById(int id){
     }
     
     return cli;
+}
+
+public Cliente update(Cliente cliente) {
+    
+    for(Cliente cli: clientes){
+        if ( cliente.getId().equals(cli.getId()) ){
+            cli.setNome(cliente.getNome());
+            cli.setCpf(cliente.getCpf());
+        }       
+    }
+
+    return cliente;
 }
 
 
